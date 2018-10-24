@@ -1,5 +1,5 @@
-name: slurm-dbd-v2
-summary: v2 interface for slurm dbd
+name: slurm-dbd
+summary: interface for slurm dbd
 maintainer:
   - Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
 version: 2
