@@ -20,7 +20,7 @@ class DbdRequires(reactive.Endpoint):
 
     @reactive.when('slurm-controller.dbdname-requested')
     @reactive.when_not('slurm-controller.dbdname-accepted')
-    @reactive.when('endpoint.slurm-dbd.changed.accepted_clustername')
+    @reactive.when('endpoint.slurm-dbd-consumer.changed.accepted_clustername')
     def get_clustername_ack(self):
         epunit = hookenv.remote_unit()
         hookenv.log("get_clustername_ack(): remote unit: %s" % epunit)
@@ -45,10 +45,10 @@ class DbdRequires(reactive.Endpoint):
             itself+peers and updates config on all nodes
             """
         # clear all the flags that was sent in changed() on the provider side
-        flags.clear_flag('endpoint.slurm-dbd.changed.requested_clustername')
-        flags.clear_flag('endpoint.slurm-dbd.changed.accepted_clustername')
+        flags.clear_flag('endpoint.slurm-dbd-consumer.changed.requested_clustername')
+        flags.clear_flag('endpoint.slurm-dbd-consumer.changed.accepted_clustername')
 
-    @reactive.when('endpoint.slurm-dbd.changed.dbd_host')
+    @reactive.when('endpoint.slurm-dbd-consumer.changed.dbd_host')
     def store_dbd_host(self):
         epunit = hookenv.remote_unit()
         hookenv.log("store_dbd_host(): remote unit: %s" % epunit)
@@ -63,9 +63,9 @@ class DbdRequires(reactive.Endpoint):
             ipresult = joined_units[epunit].received.get('ingress-address')
             self._cached_dbd_ipaddr = ipresult
             hookenv.log("store_dbd_host(): received hostname/ip %s/%s:%s from %s" % (nameresult, ipresult, portresult, epunit))
-            flags.set_flag('endpoint.slurm-dbd.dbd_host_updated')
+            flags.set_flag('endpoint.slurm-dbd-consumer.dbd_host_updated')
 
-        flags.clear_flag('endpoint.slurm-dbd.changed.dbd_host')
+        flags.clear_flag('endpoint.slurm-dbd-consumer.changed.dbd_host')
 
     @property
     def dbd_host(self):

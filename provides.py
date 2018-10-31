@@ -40,9 +40,9 @@ class DbdProvides(reactive.Endpoint):
  
         return False
 
-    @reactive.when('endpoint.slurm-dbd.joined')
-    @reactive.when('endpoint.slurm-dbd.changed')
-    @reactive.when('endpoint.slurm-dbd.changed.requested_clustername')
+    @reactive.when('endpoint.slurm-dbd-provider.joined')
+    @reactive.when('endpoint.slurm-dbd-provider.changed')
+    @reactive.when('endpoint.slurm-dbd-provider.changed.requested_clustername')
     def changed(self, event=None, even2=None):
         epunit = hookenv.remote_unit()
 
@@ -78,4 +78,4 @@ class DbdProvides(reactive.Endpoint):
                         else:
                             hookenv.log("changed(): not publishing update to %s, wrong relation!" % unit.unit_name)
 
-        flags.clear_flag('endpoint.slurm-dbd.changed.requested_clustername')
+        flags.clear_flag('endpoint.slurm-dbd-provider.changed.requested_clustername')
